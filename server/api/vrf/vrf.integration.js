@@ -3,40 +3,40 @@
 var app = require('../..');
 import request from 'supertest';
 
-var newThing;
+var newVrf;
 
-describe('Thing API:', function() {
+describe('VRF API:', function() {
 
-  describe('GET /api/things', function() {
-    var things;
+  describe('GET /api/vrf', function() {
+    var vrfs;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things')
+        .get('/api/vrf')
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
             return done(err);
           }
-          things = res.body;
+          vrfs = res.body;
           done();
         });
     });
 
     it('should respond with JSON array', function() {
-      expect(things).to.be.instanceOf(Array);
+      expect(vrfs).to.be.instanceOf(Array);
     });
 
   });
 
-  describe('POST /api/things', function() {
+  describe('POST /api/vrf', function() {
     beforeEach(function(done) {
       request(app)
-        .post('/api/things')
+        .post('/api/vrf')
         .send({
-          name: 'New Thing',
-          info: 'This is the brand new thing!!!'
+          name: 'New VRF',
+          info: 'This is the brand new VRF!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -44,55 +44,55 @@ describe('Thing API:', function() {
           if (err) {
             return done(err);
           }
-          newThing = res.body;
+          newVrf = res.body;
           done();
         });
     });
 
-    it('should respond with the newly created thing', function() {
-      expect(newThing.name).to.equal('New Thing');
-      expect(newThing.info).to.equal('This is the brand new thing!!!');
+    it('should respond with the newly created VRF', function() {
+      expect(newVrf.name).to.equal('New VRF');
+      expect(newVrf.info).to.equal('This is the brand new VRF!!!');
     });
 
   });
 
-  describe('GET /api/things/:id', function() {
-    var thing;
+  describe('GET /api/vrf/:id', function() {
+    var vrf;
 
     beforeEach(function(done) {
       request(app)
-        .get('/api/things/' + newThing._id)
+        .get('/api/vrf/' + newVrf._id)
         .expect(200)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
             return done(err);
           }
-          thing = res.body;
+          vrf = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      thing = {};
+      vrf = {};
     });
 
-    it('should respond with the requested thing', function() {
-      expect(thing.name).to.equal('New Thing');
-      expect(thing.info).to.equal('This is the brand new thing!!!');
+    it('should respond with the requested VRF', function() {
+      expect(vrf.name).to.equal('New VRF');
+      expect(vrf.info).to.equal('This is the brand new VRF!!!');
     });
 
   });
 
-  describe('PUT /api/things/:id', function() {
-    var updatedThing;
+  describe('PUT /api/vrf/:id', function() {
+    var updatedVrf;
 
     beforeEach(function(done) {
       request(app)
-        .put('/api/things/' + newThing._id)
+        .put('/api/vrf/' + newVrf._id)
         .send({
-          name: 'Updated Thing',
-          info: 'This is the updated thing!!!'
+          name: 'Updated VRF',
+          info: 'This is the updated VRF!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -100,27 +100,27 @@ describe('Thing API:', function() {
           if (err) {
             return done(err);
           }
-          updatedThing = res.body;
+          updatedVrf = res.body;
           done();
         });
     });
 
     afterEach(function() {
-      updatedThing = {};
+      updatedVrf = {};
     });
 
-    it('should respond with the updated thing', function() {
-      expect(updatedThing.name).to.equal('Updated Thing');
-      expect(updatedThing.info).to.equal('This is the updated thing!!!');
+    it('should respond with the updated VRF', function() {
+      expect(updatedVrf.name).to.equal('Updated VRF');
+      expect(updatedVrf.info).to.equal('This is the updated VRF!!!');
     });
 
   });
 
-  describe('DELETE /api/things/:id', function() {
+  describe('DELETE /api/vrf/:id', function() {
 
     it('should respond with 204 on successful removal', function(done) {
       request(app)
-        .delete('/api/things/' + newThing._id)
+        .delete('/api/vrf/' + newVrf._id)
         .expect(204)
         .end((err, res) => {
           if (err) {
@@ -130,9 +130,9 @@ describe('Thing API:', function() {
         });
     });
 
-    it('should respond with 404 when thing does not exist', function(done) {
+    it('should respond with 404 when VRF does not exist', function(done) {
       request(app)
-        .delete('/api/things/' + newThing._id)
+        .delete('/api/vrf/' + newVrf._id)
         .expect(404)
         .end((err, res) => {
           if (err) {

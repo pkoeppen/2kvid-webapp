@@ -14,7 +14,7 @@
         return config;
       },
 
-      // Intercept 401s and redirect you to login
+      // Intercept 401s and redirect to login
       responseError(response) {
         if (response.status === 401) {
           (state || (state = $injector.get('$state')))

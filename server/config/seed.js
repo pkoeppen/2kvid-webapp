@@ -4,12 +4,12 @@
  */
 
 'use strict';
-import Thing from '../api/thing/thing.model';
+import Vrf from '../api/vrf/vrf.model';
 import User from '../api/user/user.model';
 
-Thing.find({}).remove()
+Vrf.find({}).remove()
   .then(() => {
-    Thing.create({
+    Vrf.create({
       name: 'Development Tools',
       info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
              'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
@@ -49,8 +49,8 @@ User.find({}).remove()
     }, {
       provider: 'local',
       role: 'admin',
-      name: 'Admin',
-      email: 'admin@example.com',
+      name: 'Kenneth',
+      email: 'kenneth.crosbie@2k.com',
       password: 'admin'
     })
     .then(() => {

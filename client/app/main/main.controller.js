@@ -7,32 +7,32 @@
     constructor($http, $scope, socket) {
       this.$http = $http;
       this.socket = socket;
-      this.awesomeThings = [];
+      this.Vrfs = [];
 
       $scope.$on('$destroy', function() {
-        socket.unsyncUpdates('thing');
+        socket.unsyncUpdates('vrf');
       });
     }
 
     $onInit() {
-      this.$http.get('/api/things')
+      this.$http.get('/api/vrf')
         .then(response => {
-          this.awesomeThings = response.data;
-          this.socket.syncUpdates('thing', this.awesomeThings);
+          this.Vrfs = response.data;
+          this.socket.syncUpdates('vrf', this.Vrfs);
         });
     }
 
-    addThing() {
-      if (this.newThing) {
-        this.$http.post('/api/things', {
-          name: this.newThing
+    addVrf() {
+      if (this.newVrf) {
+        this.$http.post('/api/vrf', {
+          name: this.newVrf
         });
-        this.newThing = '';
+        this.newVrf = '';
       }
     }
 
-    deleteThing(thing) {
-      this.$http.delete('/api/things/' + thing._id);
+    deleteVrf(vrf) {
+      this.$http.delete('/api/vrf/' + vrf._id);
     }
   }
 
