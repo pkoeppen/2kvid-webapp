@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('2kvidWebappApp')
+angular.module('2kvidWebApp')
   .factory('Modal', function($rootScope, $uibModal) {
     /**
      * Opens a modal

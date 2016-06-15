@@ -10,32 +10,35 @@ import User from '../api/user/user.model';
 Vrf.find({}).remove()
   .then(() => {
     Vrf.create({
-      name: 'Development Tools',
-      info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
-             'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
-             'Stylus, Sass, and Less.'
+      title: 'Test VRF Title 1',
+      from: 'Requester 1',
+      for: 'For Franchise 1',
+      date: Date.now(),
+      due: Date.now(),
+      body: 'Fake body message for Test VRF 1',
+      notes: [
+        {
+          author: 'Note 1 author',
+          body: 'Note body for super fake placeholder note',
+          important: true
+        }
+      ],
+      active: true
     }, {
-      name: 'Server and Client integration',
-      info: 'Built with a powerful and fun stack: MongoDB, Express, ' +
-             'AngularJS, and Node.'
-    }, {
-      name: 'Smart Build System',
-      info: 'Build system ignores `spec` files, allowing you to keep ' +
-             'tests alongside code. Automatic injection of scripts and ' +
-             'styles into your index.html'
-    }, {
-      name: 'Modular Structure',
-      info: 'Best practice client and server structures allow for more ' +
-             'code reusability and maximum scalability'
-    }, {
-      name: 'Optimized Build',
-      info: 'Build process packs up your templates as a single JavaScript ' +
-             'payload, minifies your scripts/css/images, and rewrites asset ' +
-             'names for caching.'
-    }, {
-      name: 'Deployment Ready',
-      info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
-             'and openshift subgenerators'
+      title: 'Test VRF Title 2',
+      from: 'Requester 2',
+      for: 'For Franchise 2',
+      date: Date.now(),
+      due: Date.now(),
+      body: 'Fake body message for Test VRF 2',
+      notes: [
+        {
+          author: 'Note 1 author',
+          body: 'Note body for super fake placeholder note',
+          important: false
+        }
+      ],
+      active: false
     });
   });
 

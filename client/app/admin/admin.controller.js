@@ -14,6 +14,6 @@
     }
   }
 
-  angular.module('2kvidWebappApp.admin')
+  angular.module('2kvidWebApp.admin')
     .controller('AdminController', AdminController);
 })();

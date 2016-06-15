@@ -21,6 +21,6 @@
     });
   }
 
-  angular.module('2kvidWebappApp.auth')
+  angular.module('2kvidWebApp.auth')
     .factory('User', UserResource);
 })();

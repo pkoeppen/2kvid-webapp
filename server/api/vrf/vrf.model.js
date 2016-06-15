@@ -16,6 +16,9 @@ var VrfSchema = new mongoose.Schema({
 			important: Boolean
 		}
 	],
+	onit: [
+		String
+	],
   active: Boolean			// In progress
 });
 

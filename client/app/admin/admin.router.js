@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('2kvidWebappApp.admin')
+angular.module('2kvidWebApp.admin')
   .config(function($stateProvider) {
     $stateProvider.state('admin', {
       url: '/admin',

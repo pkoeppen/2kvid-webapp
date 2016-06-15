@@ -36,7 +36,7 @@
     }
   }
 
-  angular.module('2kvidWebappApp')
+  angular.module('2kvidWebApp')
     .component('main', {
       templateUrl: 'app/main/main.html',
       controller: MainController

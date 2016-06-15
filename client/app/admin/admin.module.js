@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('2kvidWebappApp.admin', ['2kvidWebappApp.auth', 'ui.router']);
+angular.module('2kvidWebApp.admin', ['2kvidWebApp.auth', 'ui.router']);

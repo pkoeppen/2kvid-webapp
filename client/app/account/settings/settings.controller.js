@@ -23,5 +23,5 @@ class SettingsController {
   }
 }
 
-angular.module('2kvidWebappApp')
+angular.module('2kvidWebApp')
   .controller('SettingsController', SettingsController);

@@ -29,5 +29,5 @@ class LoginController {
   }
 }
 
-angular.module('2kvidWebappApp')
+angular.module('2kvidWebApp')
   .controller('LoginController', LoginController);

@@ -3,7 +3,7 @@
 describe('Component: mainComponent', function() {
 
   // load the controller's module
-  beforeEach(module('2kvidWebappApp'));
+  beforeEach(module('2kvidWebApp'));
   beforeEach(module('stateMock'));
   beforeEach(module('socketMock'));
 

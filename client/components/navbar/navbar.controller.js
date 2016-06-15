@@ -12,5 +12,5 @@ class NavbarController {
 
 }
 
-angular.module('2kvidWebappApp')
+angular.module('2kvidWebApp')
   .controller('NavbarController', NavbarController);

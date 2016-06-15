@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('2kvidWebappApp', ['2kvidWebappApp.auth', '2kvidWebappApp.admin',
-    '2kvidWebappApp.constants', 'ngCookies', 'ngResource', 'ngSanitize', 'btford.socket-io',
+angular.module('2kvidWebApp', ['2kvidWebApp.auth', '2kvidWebApp.admin',
+    '2kvidWebApp.constants', 'ngCookies', 'ngResource', 'ngSanitize', 'btford.socket-io',
     'ui.router', 'ui.bootstrap', 'validation.match'
   ])
   .config(function($urlRouterProvider, $locationProvider) {

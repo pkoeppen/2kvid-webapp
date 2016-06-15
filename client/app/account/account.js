@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('2kvidWebappApp')
+angular.module('2kvidWebApp')
   .config(function($stateProvider) {
     $stateProvider.state('login', {
         url: '/login',

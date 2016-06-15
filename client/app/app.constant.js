@@ -1,5 +1,5 @@
 (function(angular, undefined) {
-  angular.module("2kvidWebappApp.constants", [])
+  angular.module("2kvidWebApp.constants", [])
 
 .constant("appConfig", {
 	"userRoles": [

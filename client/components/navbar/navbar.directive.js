@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('2kvidWebappApp')
+angular.module('2kvidWebApp')
   .directive('navbar', () => ({
     templateUrl: 'components/navbar/navbar.html',
     restrict: 'E',

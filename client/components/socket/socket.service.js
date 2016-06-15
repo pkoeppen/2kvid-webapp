@@ -1,7 +1,7 @@
 /* global io */
 'use strict';
 
-angular.module('2kvidWebappApp')
+angular.module('2kvidWebApp')
   .factory('socket', function(socketFactory) {
     // socket.io now auto-configures its connection when we omit a connection url
     var ioSocket = io('', {

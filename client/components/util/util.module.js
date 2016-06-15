@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('2kvidWebappApp.util', []);
+angular.module('2kvidWebApp.util', []);

@@ -65,6 +65,6 @@
     return Util;
   }
 
-  angular.module('2kvidWebappApp.util')
+  angular.module('2kvidWebApp.util')
     .factory('Util', UtilService);
 })();

@@ -4,7 +4,7 @@
  * Removes server error when user updates input
  */
 
-angular.module('2kvidWebappApp')
+angular.module('2kvidWebApp')
   .directive('mongooseError', function() {
     return {
       restrict: 'A',

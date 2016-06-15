@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('2kvidWebappApp.auth', ['2kvidWebappApp.constants', '2kvidWebappApp.util',
+angular.module('2kvidWebApp.auth', ['2kvidWebApp.constants', '2kvidWebApp.util',
     'ngCookies', 'ui.router'
   ])
   .config(function($httpProvider) {
