@@ -1,7 +1,7 @@
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
+    <h1>Some shit goes here</h1>
+    <p class="lead">More shit goes down here</p>
     <img src="assets/images/yeoman.png" alt="I'm Yeoman">
   </div>
 </header>
@@ -12,7 +12,16 @@
       <h1 class="page-header">Open Assignments:</h1>
         <!-- accordion -->
         <uib-accordion>
-          <uib-accordion-group heading="{{vrf.title}}" ng-repeat="vrf in $ctrl.Vrfs">
+          <uib-accordion-group ng-repeat="vrf in $ctrl.Vrfs">
+            <!-- heading -->
+            <uib-accordion-heading>
+              {{vrf.title}}
+              <i class="accordion-glyph pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
+              <span class="onit label label-default pull-right" ng-repeat="peer in vrf.onit">
+                {{peer}}
+              </span>
+            </uib-accordion-heading>
+            <!-- /heading -->
             <!-- image and table row -->
             <div class="row">
               <div class="col-sm-6 col-md-3 col-lg-3">
@@ -57,7 +66,7 @@
               <div class="col-lg-12">
                 <h3>Notes</h3>
                 <ul>
-                  <li ng-repeat="note in vrf.notes">{{note.body}}</li>
+                  <li ng-repeat="note in vrf.notes">{{note.body}} -- {{note.author}}</li>
                 </ul>
               </div>
             </div>
@@ -67,7 +76,7 @@
               <div class="col-lg-12">
                 <form class="note-form">
                   <p class="input-group">
-                    <input type="text" class="form-control" placeholder="Add a new note here." ng-model="$ctrl.newNote">
+                    <input type="text" class="form-control" placeholder="Add a new note here." ng-model="vrf.newNote">
                     <span class="input-group-btn">
                       <button type="submit" class="btn btn-primary" ng-click="$ctrl.addNote(vrf)">Add New</button>
                     </span>
@@ -82,7 +91,9 @@
     </div>
   </div>
 
-  <form class="vrf-form">
+  <upload></upload>
+
+  <!-- <form class="vrf-form">
     <label>Syncs in realtime across clients</label>
     <p class="input-group">
       <input type="text" class="form-control" placeholder="Add a new vrf here." ng-model="$ctrl.newVrf">
@@ -90,5 +101,5 @@
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.addVrf()">Add New</button>
       </span>
     </p>
-  </form>
+  </form> -->
 </div>

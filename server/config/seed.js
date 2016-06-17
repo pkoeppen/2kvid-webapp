@@ -18,10 +18,21 @@ Vrf.find({}).remove()
       body: 'Fake body message for Test VRF 1',
       notes: [
         {
+          date: Date.now(),
           author: 'Note 1 author',
           body: 'Note body for super fake placeholder note',
           important: true
+        },
+        {
+          date: Date.now(),
+          author: 'Note 2 author',
+          body: 'Note body for super fake placeholder note',
+          important: false
         }
+      ],
+      onit: [
+        'Dude 1',
+        'Dude 2'
       ],
       active: true
     }, {
@@ -33,10 +44,28 @@ Vrf.find({}).remove()
       body: 'Fake body message for Test VRF 2',
       notes: [
         {
+          date: Date.now(),
           author: 'Note 1 author',
           body: 'Note body for super fake placeholder note',
           important: false
+        },
+        {
+          date: Date.now(),
+          author: 'Note 2 author',
+          body: 'Note body for super fake placeholder note',
+          important: true
+        },
+        {
+          date: Date.now(),
+          author: 'Note 3 author',
+          body: 'Note body for super fake placeholder note',
+          important: true
         }
+      ],
+      onit: [
+        'Dude 1',
+        'Dude 2',
+        'Dude 3'
       ],
       active: false
     });

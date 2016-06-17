@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <button ng-if="modal.dismissable" type="button" ng-click="$dismiss()" class="close">&times;</button>
+  <h4 ng-if="modal.title" ng-bind="modal.title" class="modal-title"></h4>
+</div>
+<div class="modal-body">
+  <p ng-if="modal.text" ng-bind="modal.text"></p>
+  
+  <form>
+  	<!-- Title -->
+	  <div class="form-group">
+	    <label for="vrfTitle" class="control-label">Title</label>
+	    <div>
+	      <input type="text" class="form-control" id="vrfTitle" value="{{modal.vrf.title}}">
+	    </div>
+	  </div>
+	  <!-- Franchise -->
+	  <div class="form-group">
+	    <label for="vrfFor" class="control-label">Franchise</label>
+	    <div>
+	      <input type="text" class="form-control" id="vrfFor" value="{{modal.vrf.for}}">
+	    </div>
+	  </div>
+	  <!-- Date due -->
+	  <div class="form-group">
+	    <label for="vrfDateDue" class="control-label">Date due</label>
+	    <div>
+	      <input type="date" class="form-control" id="vrfDateDue" value="{{modal.vrf.due}}">
+	    </div>
+	  </div>
+	  <!-- Date requested -->
+	  <div class="form-group">
+	    <label for="vrfDateRequested" class="control-label">Date requested</label>
+	    <div>
+	      <input type="date" class="form-control" id="vrfDateRequested" value="{{modal.vrf.date}}">
+	    </div>
+	  </div>
+	  <!-- Requested by -->
+	  <div class="form-group">
+	    <label for="vrfRequestedBy" class="control-label">Requested by</label>
+	    <div>
+	      <input type="text" class="form-control" id="vrfRequestedBy" value="{{modal.vrf.from}}">
+	    </div>
+	  </div>
+	  <!-- Body -->
+	  <div class="form-group">
+	    <label for="vrfBody" class="control-label">Body</label>
+	    <div>
+	      <textarea rows="6" class="form-control" id="vrfBody">{{modal.vrf.body}}</textarea>
+	    </div>
+	  </div>
+
+	</form>
+
+</div>
+<div class="modal-footer">
+  <button ng-repeat="button in modal.buttons" ng-class="button.classes" ng-click="button.click($event)" ng-bind="button.text" class="btn"></button>
+</div>

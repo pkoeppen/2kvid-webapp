@@ -2,7 +2,7 @@
 
 angular.module('2kvidWebApp', ['2kvidWebApp.auth', '2kvidWebApp.admin',
     '2kvidWebApp.constants', 'ngCookies', 'ngResource', 'ngSanitize', 'btford.socket-io',
-    'ui.router', 'ui.bootstrap', 'validation.match'
+    'ui.router', 'ui.bootstrap', 'validation.match', 'ngFileUpload'
   ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');

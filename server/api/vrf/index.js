@@ -1,5 +1,6 @@
 'use strict';
 
+import parsePdf from './pdf-parser';
 var express = require('express');
 var controller = require('./vrf.controller');
 
@@ -11,5 +12,6 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
+router.post('/upload', parsePdf);
 
 module.exports = router;

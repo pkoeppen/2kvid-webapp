@@ -302,7 +302,9 @@ gulp.task('clean:tmp', () => del(['.tmp/**/*'], {dot: true}));
 
 gulp.task('start:client', cb => {
     whenServerReady(() => {
-        open('http://localhost:' + config.port);
+
+        // added '/main' temporarily
+        open('http://localhost:' + config.port + '/main');
         cb();
     });
 });
@@ -521,7 +523,7 @@ gulp.task('build:client', ['styles', 'html', 'constant', 'build:images'], () => 
 gulp.task('html', function() {
     return gulp.src(`${clientPath}/{app,components}/**/*.html`)
         .pipe(plugins.angularTemplatecache({
-            module: '2kvidWebappApp'
+            module: '2kvidWebApp'
         }))
         .pipe(gulp.dest('.tmp'));
 });
@@ -529,7 +531,7 @@ gulp.task('html', function() {
 gulp.task('constant', function() {
   let sharedConfig = require(`./${serverPath}/config/environment/shared`);
   return plugins.ngConstant({
-    name: '2kvidWebappApp.constants',
+    name: '2kvidWebApp.constants',
     deps: [],
     wrap: true,
     stream: true,

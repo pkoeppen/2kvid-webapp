@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('2kvidWebApp')
-  .factory('Modal', function($rootScope, $uibModal) {
+  .factory('Modal', function($rootScope, $uibModal, Vrf) {
     /**
      * Opens a modal
      * @param  {Object} scope      - an object to be merged with modal's scope
      * @param  {String} modalClass - (optional) class(es) to be applied to the modal
      * @return {Object}            - the instance $uibModal.open() returns
      */
-    function openModal(scope = {}, modalClass = 'modal-default') {
+    function openModal(scope = {}, templateUrl = 'components/modal/modal-default.html', modalClass = 'modal-default') {
       var modalScope = $rootScope.$new();
 
       angular.extend(modalScope, scope);
 
       return $uibModal.open({
-        templateUrl: 'components/modal/modal.html',
+        templateUrl: templateUrl,
         windowClass: modalClass,
         scope: modalScope
       });
@@ -23,52 +23,43 @@ angular.module('2kvidWebApp')
     // Public API here
     return {
 
-      /* Confirmation modals */
-      confirm: {
+      /* VRF modals */
+      vrf: {
 
         /**
-         * Create a function to open a delete confirmation modal (ex. ng-click='myModalFn(name, arg1, arg2...)')
-         * @param  {Function} del - callback, ran when delete is confirmed
-         * @return {Function}     - the function to open the modal (ex. myModalFn)
+         * Create a function to open a modal to edit a VRF
+         * @param  {Object} vrf     - the VRF data being edited/saved
+         * @return {Function}       - the function to open the modal
          */
-        delete(del = angular.noop) {
-          /**
-           * Open a delete confirmation modal
-           * @param  {String} name   - name or info to show on modal
-           * @param  {All}           - any additional args are passed straight to del callback
-           */
-          return function() {
-            var args = Array.prototype.slice.call(arguments),
-              name = args.shift(),
-              deleteModal;
+        edit(vrf={}, isNew=true) {
 
-            deleteModal = openModal({
+          return function() {
+            var editVrfModal = openModal({
               modal: {
+                vrf: vrf,
                 dismissable: true,
-                title: 'Confirm Delete',
-                html: '<p>Are you sure you want to delete <strong>' + name +
-                  '</strong> ?</p>',
+                title: isNew ? 'Edit New VRF' : 'Edit VRF',
                 buttons: [{
                   classes: 'btn-danger',
-                  text: 'Delete',
+                  text: 'Save',
                   click: function(e) {
-                    deleteModal.close(e);
+                    editVrfModal.close(e);
                   }
                 }, {
                   classes: 'btn-default',
                   text: 'Cancel',
                   click: function(e) {
-                    deleteModal.dismiss(e);
+                    editVrfModal.dismiss(e);
                   }
                 }]
               }
-            }, 'modal-danger');
+            }, 'components/modal/modal-edit-vrf.html', 'modal-danger');
 
-            deleteModal.result.then(function(event) {
-              del.apply(event, args);
+            editVrfModal.result.then(function(event) {
+              return isNew ? Vrf.save(vrf) : Vrf.update(vrf);
             });
           };
         }
-      }
+      },
     };
   });

@@ -76,6 +76,10 @@ export function show(req, res) {
 
 // Creates a new VRF in the DB
 export function create(req, res) {
+
+  // TODO:
+  // parse PDF and send back JSON
+
   return Vrf.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));

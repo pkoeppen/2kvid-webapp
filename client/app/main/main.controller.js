@@ -4,8 +4,9 @@
 
   class MainController {
 
-    constructor($http, $scope, socket) {
+    constructor($http, $scope, Auth, socket) {
       this.$http = $http;
+      this.getCurrentUser = Auth.getCurrentUser;
       this.socket = socket;
       this.Vrfs = [];
 
@@ -22,13 +23,21 @@
         });
     }
 
-    addVrf() {
-      if (this.newVrf) {
-        this.$http.post('/api/vrf', {
-          name: this.newVrf
-        });
-        this.newVrf = '';
-      }
+    addNote(vrf) {
+      var updatedNotes;
+      updatedNotes = vrf.notes;
+      updatedNotes.push({
+        date: Date.now(),
+        author: this.getCurrentUser().name,
+        body: vrf.newNote,
+        important: true
+      });
+
+      this.$http.put('/api/vrf/' + vrf._id, {
+        notes: updatedNotes
+      });
+
+      vrf.newNote = '';
     }
 
     deleteVrf(vrf) {

@@ -11,6 +11,7 @@ var VrfSchema = new mongoose.Schema({
 	body: String,				// Message body
   notes: [						// Notes from VidProd
 		{
+			date: Date,
 			author: String,
 			body: String,
 			important: Boolean

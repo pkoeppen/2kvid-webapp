@@ -1,0 +1,29 @@
+<!-- watching model:
+<div class="btn btn-primary" ngf-select ng-model="file" ngf-multiple="false">Select File</div>
+on file change multiple:
+<div class="btn btn-primary" ngf-select="upload($files)" ngf-multiple="true">Select File</div>
+Drop File: -->
+
+<div ngf-drop ngf-select ng-model="file" class="drop-box" 
+    ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
+    accept="application/pdf" 
+    ngf-pattern="'application/pdf'">
+
+    <h2 class="text-muted">Drop VRF, or click to upload</h2>
+    <i class="fa fa-2x fa-plus text-muted"></i>
+
+</div>
+
+<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+<a href="#">
+	<span class="pull-right" style="margin-top:6px;">Submit manually</span>
+</a>
+
+<br><br><br>
+[debug] Files:
+<ul>
+    <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
+</ul>
+Upload Log:
+<pre>{{log}}</pre>
