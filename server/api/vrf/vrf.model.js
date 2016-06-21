@@ -20,6 +20,7 @@ var VrfSchema = new mongoose.Schema({
 	onit: [
 		String
 	],
+	urgent: Boolean,		// Urgent
   active: Boolean			// In progress
 });
 

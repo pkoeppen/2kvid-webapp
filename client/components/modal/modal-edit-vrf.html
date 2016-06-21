@@ -10,43 +10,65 @@
 	  <div class="form-group">
 	    <label for="vrfTitle" class="control-label">Title</label>
 	    <div>
-	      <input type="text" class="form-control" id="vrfTitle" value="{{modal.vrf.title}}">
+	      <input type="text" class="form-control" id="vrfTitle" ng-model="modal.vrf.title"/>
 	    </div>
 	  </div>
 	  <!-- Franchise -->
 	  <div class="form-group">
 	    <label for="vrfFor" class="control-label">Franchise</label>
 	    <div>
-	      <input type="text" class="form-control" id="vrfFor" value="{{modal.vrf.for}}">
+	      <select class="form-control" id="vrfFor" ng-model="modal.vrf.for">
+	      	<option ng-repeat="(stub, franchise) in franchises" value="{{stub}}">{{franchise}}</option>
+	      </select>
 	    </div>
 	  </div>
 	  <!-- Date due -->
 	  <div class="form-group">
 	    <label for="vrfDateDue" class="control-label">Date due</label>
 	    <div>
-	      <input type="date" class="form-control" id="vrfDateDue" value="{{modal.vrf.due}}">
+	      <input type="text" class="form-control" id="vrfDateDue" uib-datepicker-popup="M!/d!/yyyy" ng-model="modal.vrf.due"/>
 	    </div>
 	  </div>
 	  <!-- Date requested -->
 	  <div class="form-group">
 	    <label for="vrfDateRequested" class="control-label">Date requested</label>
 	    <div>
-	      <input type="date" class="form-control" id="vrfDateRequested" value="{{modal.vrf.date}}">
+	      <input type="text" class="form-control" id="vrfDateRequested" uib-datepicker-popup="M!/d!/yyyy" ng-model="modal.vrf.date"/>
 	    </div>
 	  </div>
 	  <!-- Requested by -->
 	  <div class="form-group">
 	    <label for="vrfRequestedBy" class="control-label">Requested by</label>
 	    <div>
-	      <input type="text" class="form-control" id="vrfRequestedBy" value="{{modal.vrf.from}}">
+	      <input type="text" class="form-control" id="vrfRequestedBy" ng-model="modal.vrf.from"/>
 	    </div>
 	  </div>
 	  <!-- Body -->
 	  <div class="form-group">
 	    <label for="vrfBody" class="control-label">Body</label>
 	    <div>
-	      <textarea rows="6" class="form-control" id="vrfBody">{{modal.vrf.body}}</textarea>
+	      <textarea rows="6" class="form-control" id="vrfBody" ng-model="modal.vrf.body"></textarea>
 	    </div>
+	  </div>
+	  <!-- On it -->
+	  <div class="form-group">
+	  	<label for="onIt" class="control-label">On it</label>
+	  	<div id="onIt">
+			  <label class="checkbox-inline" ng-repeat="user in users">
+			    <input type="checkbox" value="{{user.name}}" ng-checked="modal.vrf.onit.indexOf(user.name) > -1 ? true : false" ng-click="modal.toggleOnIt(user)"/>
+			    {{user.name}}
+			  </label>
+			</div>
+	  </div>
+	  <!-- Urgent -->
+	  <div class="form-group">
+	  	<label for="urgent" class="control-label">Urgent?</label>
+	  	<div id="urgent">
+			  <label class="checkbox-inline">
+			    <input type="checkbox" value="urgent" ng-checked="modal.vrf.urgent" ng-click="modal.toggleUrgent()"/>
+			    Yes
+			  </label>
+			</div>
 	  </div>
 
 	</form>

@@ -10,64 +10,67 @@ import User from '../api/user/user.model';
 Vrf.find({}).remove()
   .then(() => {
     Vrf.create({
-      title: 'Test VRF Title 1',
-      from: 'Requester 1',
-      for: 'For Franchise 1',
+      title: 'Mafia III VRF Test',
+      from: 'Mafia Team',
+      for: 'mafia3',
       date: Date.now(),
       due: Date.now(),
       body: 'Fake body message for Test VRF 1',
       notes: [
         {
           date: Date.now(),
-          author: 'Note 1 author',
-          body: 'Note body for super fake placeholder note',
+          author: 'Kenny',
+          body: 'Translations here: N:\\2KGNOV\\VidProd\\vtrak_c\\Mafia III\\_translations\\Announce Trailer\\MafiaIII_AnnounceTrailer_Localization.xlsx',
           important: true
         },
         {
           date: Date.now(),
-          author: 'Note 2 author',
-          body: 'Note body for super fake placeholder note',
+          author: 'Kenny',
+          body: 'And the textless render-- N:\\2KGNOV\\VidProd\\vtrak_c\\Mafia III\\_edits\\Announce Trailer\\Project_Whiskey_FINAL_ProRes.mov',
           important: false
         }
       ],
       onit: [
-        'Dude 1',
-        'Dude 2'
+        'Kenny',
+        'Doug'
       ],
+      urgent: true,
       active: true
     }, {
-      title: 'Test VRF Title 2',
-      from: 'Requester 2',
-      for: 'For Franchise 2',
+      title: 'Battleborn VRF Test',
+      from: 'BB Team',
+      for: 'bborn',
       date: Date.now(),
       due: Date.now(),
       body: 'Fake body message for Test VRF 2',
       notes: [
         {
           date: Date.now(),
-          author: 'Note 1 author',
+          author: 'Pete',
           body: 'Note body for super fake placeholder note',
           important: false
         },
         {
           date: Date.now(),
-          author: 'Note 2 author',
+          author: 'Kenny',
           body: 'Note body for super fake placeholder note',
           important: true
         },
         {
           date: Date.now(),
-          author: 'Note 3 author',
+          author: 'Dom',
           body: 'Note body for super fake placeholder note',
           important: true
         }
       ],
       onit: [
-        'Dude 1',
-        'Dude 2',
-        'Dude 3'
+        'Nick',
+        'Mike',
+        'Eric',
+        'Dom'
       ],
-      active: false
+      urgent: false,
+      active: true
     });
   });
 
@@ -75,15 +78,58 @@ User.find({}).remove()
   .then(() => {
     User.create({
       provider: 'local',
-      name: 'Test User',
-      email: 'test@example.com',
-      password: 'test'
+      role: 'admin',
+      name: 'Pete',
+      email: 'peter.koeppen@2k.com',
+      password: 'pass'
     }, {
       provider: 'local',
       role: 'admin',
-      name: 'Kenneth',
+      name: 'Kenny',
       email: 'kenneth.crosbie@2k.com',
-      password: 'admin'
+      password: 'pass'
+    }, {
+      provider: 'local',
+      role: 'user',
+      name: 'Doug',
+      email: 'doug.tyler@2k.com',
+      password: 'pass'
+    }, {
+      provider: 'local',
+      role: 'user',
+      name: 'Nick',
+      email: 'nick.pylvanainen@2k.com',
+      password: 'pass'
+    }, {
+      provider: 'local',
+      role: 'user',
+      name: 'Mike',
+      email: 'mike.regelean@2k.com',
+      password: 'pass'
+    }, {
+      provider: 'local',
+      role: 'user',
+      name: 'Eric',
+      email: 'eric.neff@2k.com',
+      password: 'pass'
+    }, {
+      provider: 'local',
+      role: 'user',
+      name: 'Patrick',
+      email: 'patrick.starr@2k.com',
+      password: 'pass'
+    }, {
+      provider: 'local',
+      role: 'user',
+      name: 'Evan',
+      email: 'evan.falco@2k.com',
+      password: 'pass'
+    }, {
+      provider: 'local',
+      role: 'user',
+      name: 'Dom',
+      email: 'dom.hassett@2k.com',
+      password: 'pass'
     })
     .then(() => {
       console.log('finished populating users');

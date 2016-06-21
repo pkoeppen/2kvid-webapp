@@ -11,6 +11,7 @@ export default function(app) {
   // Insert routes below
   app.use('/api/vrf', require('./api/vrf'));
   app.use('/api/users', require('./api/user'));
+  // app.use('/api/util', require('./api/util'));
 
   app.use('/auth', require('./auth').default);
 

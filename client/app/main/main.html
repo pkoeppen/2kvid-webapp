@@ -1,105 +1,16 @@
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>Some shit goes here</h1>
-    <p class="lead">More shit goes down here</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+    <h1>2KVID WebApp v0.6.0</h1>
+    <p class="lead">Super fucking functional</p>
+    <img src="assets/images/2k.png" alt="VidProd Roolz">
   </div>
 </header>
 
 <div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Open Assignments:</h1>
-        <!-- accordion -->
-        <uib-accordion>
-          <uib-accordion-group ng-repeat="vrf in $ctrl.Vrfs">
-            <!-- heading -->
-            <uib-accordion-heading>
-              {{vrf.title}}
-              <i class="accordion-glyph pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
-              <span class="onit label label-default pull-right" ng-repeat="peer in vrf.onit">
-                {{peer}}
-              </span>
-            </uib-accordion-heading>
-            <!-- /heading -->
-            <!-- image and table row -->
-            <div class="row">
-              <div class="col-sm-6 col-md-3 col-lg-3">
-                <img ng-src="assets/images/ph.jpg" class="img-thumbnail img-responsive" alt="{{vrf.for}}">
-              </div>
-              <div class="col-sm-6 col-md-9 col-lg-9">
-                <table class="table table-responsive table-striped">
-                  <tr>
-                    <td>Franchise:</td>
-                    <td>{{vrf.for}}</td>
-                  </tr>
-                  <tr>
-                    <td>Date due:</td>
-                    <td>{{vrf.due}}</td>
-                  </tr>
-                  <tr>
-                    <td>Date requested:</td>
-                    <td>{{vrf.date}}</td>
-                  </tr>
-                  <tr>
-                    <td>Requested by:</td>
-                    <td>{{vrf.from}}</td>
-                  </tr>
-                  <tr>
-                    <td>Active:</td>
-                    <td ng-style="vrf.active && {'color': 'green'}">{{vrf.active ? 'Yes' : 'No'}}</td>
-                  </tr>
-                </table>
-              </div> 
-            </div>
-            <!-- /image and table -->
-            <!-- VRF message body -->
-            <div class="row">
-              <div class="col-lg-12">
-                <h3>Description</h3>
-                <p>{{vrf.body}}</p>
-              </div>
-            </div>
-            <!-- /VRF message body -->
-            <!-- notes -->
-            <div class="row">
-              <div class="col-lg-12">
-                <h3>Notes</h3>
-                <ul>
-                  <li ng-repeat="note in vrf.notes">{{note.body}} -- {{note.author}}</li>
-                </ul>
-              </div>
-            </div>
-            <!-- /notes -->
-            <!-- submit new note -->
-            <div class="row" style="margin-top: 20px;">
-              <div class="col-lg-12">
-                <form class="note-form">
-                  <p class="input-group">
-                    <input type="text" class="form-control" placeholder="Add a new note here." ng-model="vrf.newNote">
-                    <span class="input-group-btn">
-                      <button type="submit" class="btn btn-primary" ng-click="$ctrl.addNote(vrf)">Add New</button>
-                    </span>
-                  </p>
-                </form>
-              </div>
-            </div>
-            <!-- /submit new note -->
-          </uib-accordion-group>
-        </uib-accordion>
-        <!-- /accordion -->
-    </div>
-  </div>
 
-  <upload></upload>
+  <vrf-accordion-active></vrf-accordion-active>
+  <vrf-upload></vrf-upload>
+  <hr></hr>
+  <vrf-accordion-complete></vrf-accordion-complete>
 
-  <!-- <form class="vrf-form">
-    <label>Syncs in realtime across clients</label>
-    <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new vrf here." ng-model="$ctrl.newVrf">
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="$ctrl.addVrf()">Add New</button>
-      </span>
-    </p>
-  </form> -->
 </div>

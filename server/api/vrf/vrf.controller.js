@@ -24,6 +24,9 @@ function respondWithResult(res, statusCode) {
 function saveUpdates(updates) {
   return function(entity) {
     var updated = _.merge(entity, updates);
+    // Mongoose won't update the "onit" array (let alone 
+    // any arrayof equal length) without this line
+    updated.markModified('onit');
     return updated.save()
       .then(updated => {
         return updated;
@@ -76,10 +79,6 @@ export function show(req, res) {
 
 // Creates a new VRF in the DB
 export function create(req, res) {
-
-  // TODO:
-  // parse PDF and send back JSON
-
   return Vrf.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));

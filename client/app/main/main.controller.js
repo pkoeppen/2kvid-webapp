@@ -4,11 +4,15 @@
 
   class MainController {
 
-    constructor($http, $scope, Auth, socket) {
+    constructor($http, $scope, Auth, Modal, socket) {
       this.$http = $http;
       this.getCurrentUser = Auth.getCurrentUser;
       this.socket = socket;
       this.Vrfs = [];
+
+      this.edit = Modal.vrf.edit();
+      this.complete = Modal.vrf.complete();
+      this.delete = Modal.vrf.delete();
 
       $scope.$on('$destroy', function() {
         socket.unsyncUpdates('vrf');
@@ -40,9 +44,6 @@
       vrf.newNote = '';
     }
 
-    deleteVrf(vrf) {
-      this.$http.delete('/api/vrf/' + vrf._id);
-    }
   }
 
   angular.module('2kvidWebApp')
