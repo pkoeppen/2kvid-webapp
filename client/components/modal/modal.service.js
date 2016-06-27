@@ -30,8 +30,8 @@ angular.module('2kvidWebApp')
 
         /**
          * Create a function to open a modal to edit a VRF
-         * @param  {Object} vrf     - the VRF data being edited/saved
-         * @param  {Object} isNew   - determines what endpoint the data goes to
+         * @param  {Object} vrf     - the VRF data being created or updated
+         * @param  {Object} isNew   - determines the endpoint (create or update)
          * @return {Function}       - the function that opens the modal
          */
         edit() {

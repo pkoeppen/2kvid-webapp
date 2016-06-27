@@ -12,12 +12,12 @@ describe('Component: mainComponent', function() {
   var state;
   var $httpBackend;
 
-  // Initialize the controller and a mock scope
+  // initialize the controller and a mock scope
   beforeEach(inject(function(_$httpBackend_, $http, $componentController, $rootScope, $state,
     socket) {
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/api/vrf')
-      .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
+      .respond(['VrfNumberOne', 'VrfNumberTwo', 'VrfNumberThree']);
 
     scope = $rootScope.$new();
     state = $state;
@@ -28,10 +28,10 @@ describe('Component: mainComponent', function() {
     });
   }));
 
-  it('should attach a list of vrfs to the controller', function() {
+  it('should attach a list of VRF objects to the controller', function() {
     mainComponent.$onInit();
     $httpBackend.flush();
     expect(mainComponent.Vrfs.length)
-      .to.equal(4);
+      .to.equal(3);
   });
 });

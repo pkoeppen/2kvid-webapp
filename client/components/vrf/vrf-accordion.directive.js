@@ -5,7 +5,6 @@ angular.module('2kvidWebApp')
     templateUrl: 'components/vrf/vrf-accordion.html',
     scope: true,
     restrict: 'E',
-    controller: 'VrfAccordionController',
     link: function(scope) {
     	scope.active = true;
     }
@@ -14,7 +13,6 @@ angular.module('2kvidWebApp')
     templateUrl: 'components/vrf/vrf-accordion.html',
     scope: true,
     restrict: 'E',
-    controller: 'VrfAccordionController',
     link: function(scope) {
     	scope.active = false;
     }

@@ -16,6 +16,14 @@ var router = express.Router();
 // router.delete('/:id', auth.isAuthenticated(), controller.destroy);
 // router.post('/upload', auth.isAuthenticated(), parsePdf);
 
+/*
+When a user submits a new VRF, the file is uploaded to the server,
+parsed, and sent back for further editing before being saved. Upon
+clicking "Save," the VRF JSON data is sent back to the server with
+the temporary path of the previous file upload. The file is then
+saved to the server.
+*/
+
 router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);

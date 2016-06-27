@@ -3,13 +3,13 @@
 import mongoose from 'mongoose';
 
 var VrfSchema = new mongoose.Schema({
-  title: String,			// VRF title
-  from: String,				// Requested by
-  for: String,				// Game franchise
-  date: Date,					// Date requested
+	title: String,			// VRF title
+	from: String,				// Requested by
+	for: String,				// Game franchise
+	date: Date,					// Date requested
 	due: Date,					// Date due
 	body: String,				// Message body
-  notes: [						// Notes from VidProd
+	notes: [						// Notes from VidProd
 		{
 			date: Date,
 			author: String,
@@ -21,7 +21,8 @@ var VrfSchema = new mongoose.Schema({
 		String
 	],
 	urgent: Boolean,		// Urgent
-  active: Boolean			// In progress
+	fileUrl: String,
+	active: Boolean			// In progress
 });
 
 export default mongoose.model('Vrf', VrfSchema);

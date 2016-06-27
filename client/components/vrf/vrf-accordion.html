@@ -15,6 +15,22 @@
             </span>
           </uib-accordion-heading>
           <!-- /heading -->
+          <!-- original file -->
+          <div class="row">
+            <div class="col-lg-12">
+              <a ng-if="vrf.fileUrl" href="{{vrf.fileUrl}}">
+                <div class="alert alert-info">
+                  <strong>Original VRF</strong>
+                  <pre class="pull-right" style="margin-top:-9px;">{{vrf.fileUrl}}</pre>
+                </div>
+              </a>
+              <div ng-if="!vrf.fileUrl" class="alert alert-warning">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                &nbsp;Original File Unavailable
+              </div>
+            </div>
+          </div>
+          <!-- /original file -->
           <!-- image and table row -->
           <div class="row">
             <div class="col-sm-6 col-md-3 col-lg-3">
@@ -55,23 +71,22 @@
           </div>
           <!-- /VRF message body -->
           <hr>
-          <!-- notes -->
+          <!-- notes and buttons -->
           <div class="row">
             <div class="col-lg-8">
-              <h3 style="margin-top:0;">Notes</h3>
-
-                <div ng-repeat="note in vrf.notes" class="media">
-                  <div class="media-left">
-                    <img class="media-object pull-left" ng-src="/assets/images/team/{{note.author}}-th.jpg">
-                  </div>
-                  <div class="media-body">
-                    <h4 class="media-heading">
-                      {{note.author}}:
-                    </h4>
-                    <p>{{note.body}}</p>
-                  </div>
+              <h3 style="margin: 0 0 20px;">Notes</h3>
+              <div ng-repeat="note in vrf.notes" class="media">
+                <div class="media-left">
+                  <img class="media-object pull-left" ng-src="/assets/images/team/{{note.author}}-th.jpg">
                 </div>
-                <p ng-if="!vrf.notes.length" class="text-muted">No notes.</p>
+                <div class="media-body">
+                  <h4 class="media-heading">
+                    {{note.author}}:
+                  </h4>
+                  <p>{{note.body}}</p>
+                </div>
+              </div>
+              <p ng-if="!vrf.notes.length" class="text-muted">No notes.</p>
             </div>
             <div class="col-lg-4">
               <button class="btn btn-danger pull-right" ng-click="$ctrl.delete(vrf)">Delete</button>
@@ -79,9 +94,9 @@
               <button ng-if="active" class="btn btn-default pull-right" ng-click="$ctrl.edit(vrf, false)">Edit VRF</button>
             </div>
           </div>
-          <!-- /notes -->
+          <!-- /notes and buttons -->
           <!-- submit new note -->
-          <div ng-if="active" class="row" style="margin-top: 20px;">
+          <div ng-if="active" class="row" style="margin-top: 30px;">
             <div class="col-lg-12">
               <form class="note-form">
                 <p class="input-group">

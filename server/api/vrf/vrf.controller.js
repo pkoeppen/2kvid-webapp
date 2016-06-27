@@ -9,14 +9,44 @@
 
 'use strict';
 
+import config from '../../config/environment';
 import _ from 'lodash';
 import Vrf from './vrf.model';
+
+var fs = require('fs'),
+  path = require('path'),
+  rand = require('randomstring');
+
+function handleUpload(vrf) {
+  return new Promise((resolve, reject) => {
+    var tmp = vrf.tmpPath;
+    vrf.fileUrl = '';
+    if (tmp) {
+      // temp path property is present. if anything
+      // goes wrong, just send back the VRF without saving
+      fs.readFile(tmp, (err, res) => {
+        if (err) { return resolve(vrf); }
+        var fileName = rand.generate(8) + '.pdf';
+        var filePath = path.join(config.root, 'client/uploads', fileName);
+        console.log(filePath);
+        fs.writeFile(filePath, res, (err) => {
+          if (err) { console.log(err); console.log(err.stack); return resolve(vrf); }
+          vrf.fileUrl = '/uploads/' + fileName;
+          resolve(vrf);
+        });
+      });
+    } else {
+      // no path provided, nothing to save
+      resolve(vrf);
+    }
+  });
+}
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
     if (entity) {
-      res.status(statusCode).json(entity);
+      return res.status(statusCode).json(entity);
     }
   };
 }
@@ -25,7 +55,7 @@ function saveUpdates(updates) {
   return function(entity) {
     var updated = _.merge(entity, updates);
     // Mongoose won't update the "onit" array (let alone 
-    // any arrayof equal length) without this line
+    // any updated array of equal length) without this line
     updated.markModified('onit');
     return updated.save()
       .then(updated => {
@@ -58,6 +88,8 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
+    console.log(err);
+    console.error(err.stack);
     res.status(statusCode).send(err);
   };
 }
@@ -79,9 +111,14 @@ export function show(req, res) {
 
 // Creates a new VRF in the DB
 export function create(req, res) {
-  return Vrf.create(req.body)
-    .then(respondWithResult(res, 201))
-    .catch(handleError(res));
+  return handleUpload(req.body)
+  .then((newVrf) => { return Vrf.create(newVrf); })
+  .then(respondWithResult(res, 201))
+  .catch(handleError(res));
+
+  // return Vrf.create(req.body)
+  //   .then(respondWithResult(res, 201))
+  //   .catch(handleError(res));
 }
 
 // Updates an existing VRF in the DB
