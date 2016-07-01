@@ -44,7 +44,7 @@ function parsePdf(req, res) {
 
 				var newVrf = populateModel(raw);
 				res.send(newVrf);
-
+				
 			} else {
 				// spruce this up
 				res.status(500).send('Incorrect data type');
@@ -52,7 +52,6 @@ function parsePdf(req, res) {
 		});
 		
 		pdfParser.loadPDF(tmpPath);
-
 	});
 }
 

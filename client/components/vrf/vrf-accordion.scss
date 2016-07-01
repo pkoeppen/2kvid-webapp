@@ -1,3 +1,10 @@
+.media {
+	margin-top: 10px;
+	padding: 4px;
+	border-radius: 4px;
+	background-color: #F9F9F9;
+}
+
 .media-body {
 	padding-left: 10px;
 }
@@ -8,4 +15,14 @@
 
 img.media-object {
 	border-radius: 4px;
+}
+
+.buttons {
+	z-index: 1;
+	position: relative;
+}
+.notes {
+	position: relative;
+	top: -26px;
+	margin-bottom: -26px;
 }

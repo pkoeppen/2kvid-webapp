@@ -26,12 +26,11 @@ class VrfUploadController {
                     $timeout(function() {
                         $scope.log = 'file: ' +
                         res.config.data.file.name +
-                        ', Response: ' + JSON.stringify(res.data) +
+                        ', Response: ' + JSON.stringify(res.data, null, 4) +
                         '\n' + $scope.log;
 
                         var newVrf = res.data;
                         $scope.edit(newVrf);
-
                     });
                 }, null, function (evt) {
                     var progressPercentage = parseInt(100.0 *

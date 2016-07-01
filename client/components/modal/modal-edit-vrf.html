@@ -6,14 +6,16 @@
   <p ng-if="modal.text" ng-bind="modal.text"></p>
   
   <form>
-  	<!-- Title -->
+
+  	<!-- title -->
 	  <div class="form-group">
 	    <label for="vrfTitle" class="control-label">Title</label>
 	    <div>
 	      <input type="text" class="form-control" id="vrfTitle" ng-model="modal.vrf.title"/>
 	    </div>
 	  </div>
-	  <!-- Franchise -->
+
+	  <!-- franchise -->
 	  <div class="form-group">
 	    <label for="vrfFor" class="control-label">Franchise</label>
 	    <div>
@@ -22,35 +24,40 @@
 	      </select>
 	    </div>
 	  </div>
-	  <!-- Date due -->
+
+	  <!-- date due -->
 	  <div class="form-group">
 	    <label for="vrfDateDue" class="control-label">Date due</label>
 	    <div>
 	      <input type="text" class="form-control" id="vrfDateDue" uib-datepicker-popup="M!/d!/yyyy" ng-model="modal.vrf.due"/>
 	    </div>
 	  </div>
-	  <!-- Date requested -->
+
+	  <!-- date requested -->
 	  <div class="form-group">
 	    <label for="vrfDateRequested" class="control-label">Date requested</label>
 	    <div>
 	      <input type="text" class="form-control" id="vrfDateRequested" uib-datepicker-popup="M!/d!/yyyy" ng-model="modal.vrf.date"/>
 	    </div>
 	  </div>
-	  <!-- Requested by -->
+
+	  <!-- requested by -->
 	  <div class="form-group">
 	    <label for="vrfRequestedBy" class="control-label">Requested by</label>
 	    <div>
 	      <input type="text" class="form-control" id="vrfRequestedBy" ng-model="modal.vrf.from"/>
 	    </div>
 	  </div>
-	  <!-- Body -->
+
+	  <!-- body -->
 	  <div class="form-group">
 	    <label for="vrfBody" class="control-label">Body</label>
 	    <div>
 	      <textarea rows="6" class="form-control" id="vrfBody" ng-model="modal.vrf.body"></textarea>
 	    </div>
 	  </div>
-	  <!-- On it -->
+
+	  <!-- on it -->
 	  <div class="form-group">
 	  	<label for="onIt" class="control-label">On it</label>
 	  	<div id="onIt">
@@ -60,7 +67,8 @@
 			  </label>
 			</div>
 	  </div>
-	  <!-- Urgent -->
+
+	  <!-- urgent -->
 	  <div class="form-group">
 	  	<label for="urgent" class="control-label">Urgent?</label>
 	  	<div id="urgent">
@@ -70,7 +78,6 @@
 			  </label>
 			</div>
 	  </div>
-
 	</form>
 
 </div>

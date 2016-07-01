@@ -28,7 +28,6 @@ function handleUpload(vrf) {
         if (err) { return resolve(vrf); }
         var fileName = rand.generate(8) + '.pdf';
         var filePath = path.join(config.root, 'client/uploads', fileName);
-        console.log(filePath);
         fs.writeFile(filePath, res, (err) => {
           if (err) { console.log(err); console.log(err.stack); return resolve(vrf); }
           vrf.fileUrl = '/uploads/' + fileName;

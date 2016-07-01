@@ -44,10 +44,6 @@ angular.module('2kvidWebApp')
             if (isNew) { vrf.active = true; }
             if (!vrf.hasOwnProperty('onit')) { vrf.onit = []; }
 
-            // Make dates for uibDateParser
-            vrf.date = new Date(vrf.date);
-            vrf.due = new Date(vrf.due);
-
             var editVrfModal = openModal({
               modal: {
                 vrf: vrf,

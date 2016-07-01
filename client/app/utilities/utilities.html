@@ -1,0 +1,70 @@
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>2KVID WebApp v0.6.0</h1>
+    <p class="lead">Super fucking functional</p>
+    <img src="assets/images/2k.png" alt="VidProd Roolz">
+  </div>
+</header>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">File Renamer</h1>
+			<form class="col-lg-5" name="renamerForm" ng-submit="renameFiles(renamerForm)">
+				<!-- select directory -->
+				<div class="form-group">
+					<div class="btn btn-primary form-control" ngf-select ngf-include-dir="true" ngf-multiple="false">Useless Button</div>
+				</div>
+				<!-- <pre class="selected-dir">{{dir.name || '...'}}</pre> -->
+
+				<div class="form-group">
+					<label for="rootDir" class="control-label">Root Directory</label>
+					<div id="rootDir" class="input-group col-xs-12">
+						<input type="text" class="form-control" placeholder="Starting folder" ng-model="rootDir" required>
+					</div>
+				</div>
+				<!-- text in -->
+				<div class="form-group">
+					<label for="inText" class="control-label">Text In</label>
+					<div id="inText" class="input-group col-xs-12">
+						<input type="text" class="form-control" placeholder="String to search for" ng-model="inText" required>
+					</div>
+				</div>
+				<!-- text out -->
+				<div class="form-group">
+					<label for="outText" class="control-label">Text Out</label>
+					<div id="outText" class="input-group col-xs-12">
+						<input type="text" class="form-control" placeholder="String to replace with" ng-model="outText" required>
+					</div>
+				</div>
+				<!-- limit extension -->
+				<div class="form-group">
+					<label for="limitExt" class="control-label">Limit to extension</label>
+					<div id="limitExt" class="input-group col-xs-12">
+						<select class="form-control" ng-model="limitExt">
+							<option value="none">(none)</option>
+							<option value="mp4">.mp4</option>
+							<option value="mov">.mov</option>
+							<option value="psd">.psd</option>
+						</select>
+					</div>
+				</div>
+				<!-- rename dirs, root only -->
+				<div class="form-group">
+					<label class="checkbox-inline">
+						<input type="checkbox" value="rootOnly" ng-model="rootOnly" disabled>
+						Root folder only
+					</label>
+					<label class="checkbox-inline">
+						<input type="checkbox" value="renameDirs" ng-model="renameDirs">
+						Rename directories
+					</label>
+				</div>
+				<button type="submit" class="btn btn-success btn-block">Rename</button>
+			</form>
+
+			<pre class="col-lg-7 renamer-log">{{log}}</pre>
+		</div>
+	</div>
+
+</div>

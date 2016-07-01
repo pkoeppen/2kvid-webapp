@@ -13,7 +13,11 @@ class NavbarController {
 	    {
 	    	state: 'main',
 	    	title: 'Main'
-    	}
+    	},
+      {
+        state: 'utilities',
+        title: 'Utilities'
+      }
     ];
   }
 
