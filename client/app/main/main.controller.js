@@ -21,8 +21,8 @@
 
     $onInit() {
       this.$http.get('/api/vrf')
-        .then(response => {
-          this.Vrfs = response.data;
+        .then(res => {
+          this.Vrfs = res.data;
           this.socket.syncUpdates('vrf', this.Vrfs);
         });
     }

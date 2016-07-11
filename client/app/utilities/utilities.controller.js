@@ -9,7 +9,6 @@
 
       $scope.log = '';
       $scope.limitExt = 'none';
-      $scope.rootOnly = true;
 
       $scope.renameFiles = function(form) {        
         if (form.$valid) {

@@ -7,17 +7,21 @@ describe('Component: mainComponent', function() {
   beforeEach(module('stateMock'));
   beforeEach(module('socketMock'));
 
-  var scope;
-  var mainComponent;
-  var state;
-  var $httpBackend;
+  var scope,
+      mainComponent,
+      state,
+      $httpBackend;
 
   // initialize the controller and a mock scope
   beforeEach(inject(function(_$httpBackend_, $http, $componentController, $rootScope, $state,
     socket) {
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/api/vrf')
-      .respond(['VrfNumberOne', 'VrfNumberTwo', 'VrfNumberThree']);
+      .respond([
+        { title: 'VrfNumberOne' }, 
+        { title: 'VrfNumberTwo' }, 
+        { title: 'VrfNumberThree' }
+      ]);
 
     scope = $rootScope.$new();
     state = $state;

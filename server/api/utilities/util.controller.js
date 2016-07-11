@@ -6,49 +6,97 @@
 'use strict';
 
 var fs = require('fs'),
-  path = require('path');
+  path = require('path'),
+  walk = require('walk');
 
-function respondWithOutput(res, statusCode) {
-  statusCode = statusCode || 200;
-  return function(output) {
-    if (output) {
-      res.status(statusCode).json(output);
-    }
-  };
-}
-
+/**
+* Renames files and folders on the N:\ drive
+* @param {Object} args     - parameters for renaming behavior
+* @param {Function} cb     - callback for async resolve()ing
+*/
 function renameFiles(args, cb) {
-  fs.readdir(args.rootDir, (err, files) => {
-    if (err) { return cb({ error: err.message }); }
-    var log = [];
-    for (var i in files) {
-      var re = new RegExp(args.inText, 'i');
 
-      // logic tests
-      if (re.test(files[i])) {
-        var match = true,
-            pathOld = path.join(args.rootDir, files[i]),
-            pathNew = path.join(args.rootDir, files[i].replace(re, args.outText));
+  function isRoot(a,r) {
+    // checks rootOnly property, defaults to true
+    return a.hasOwnProperty('rootOnly') && a.rootOnly
+            ? path.normalize(a.rootDir) === path.normalize(r)
+            : true;
+  }
 
-        // CONTINUE HERE
-        if ( args.hasOwnProperty('limitExt') && !files[i].endsWith(args.limitExt) )           { match = false; }
-        else if ( args.hasOwnProperty('includeDirs') && !fs.statSync(pathOld).isDirectory() ) { match = false; }
+  try { fs.accessSync(args.rootDir, fs.F_OK); }
+  catch (e) { return cb({ log: [{ type: 'err', data: 'Location unavailable.'}] }); }
 
-        if (match) {
-          try {
-            fs.renameSync(pathOld, pathNew);
-            log.push('Renamed: ' + pathOld + ' >> ' + pathNew);
-          } catch (e) {
-            return cb({
-              error: e.message,
-              log: log
+  var walker,
+      log = [],
+      listFiles = [],
+      listDirs = [],
+      re = new RegExp(args.inText, 'i');
+
+  var opts = {
+    listeners: {
+      // logic for directories
+      directories: (root, dirStatsArray, next) => {
+        if ( args.hasOwnProperty('renameDirs') && args.renameDirs && isRoot(args, root) ) {
+          for ( var i in dirStatsArray ) {
+            if ( re.test(dirStatsArray[i].name) ) {
+              listDirs.push({
+                root: root,
+                name: dirStatsArray[i].name
+              });
+            }
+          }
+        }
+        next();
+      },
+      // logic for (individual) files
+      file: (root, fileStats, next) => {
+        if ( re.test(fileStats.name) && isRoot(args,root) ) {
+          if ( !args.hasOwnProperty('limitExt') || (args.hasOwnProperty('limitExt') && files[i].endsWith(args.limitExt)) ) {
+            listFiles.push({
+              root: root,
+              name: fileStats.name
             });
           }
         }
+        next();
+      },
+      // error stuff, I don't even know if this works
+      errors: (root, nodeStatsArray, next) => {
+        for ( var i in nodeStatsArray ) {
+          log.push({
+            type: 'err',
+            data: nodeStatsArray[i].error.message
+          });
+        }
+        next();
       }
     }
-    cb({ log: log.length ? log : ['No matches.']});
+  };
+
+  walker = walk.walkSync(args.rootDir, opts);
+
+  // rename files first, then directories
+  [listFiles, listDirs].map(list => {
+  for ( var i in list ) {
+      var node = list[i];
+      var pathOld = path.join(node.root, node.name),
+          pathNew = path.join(node.root, node.name.replace(re, args.outText));
+      try {
+        fs.renameSync(pathOld, pathNew);
+        log.push({
+          type: 'msg',
+          data: 'Renamed: ' + pathOld + ' >> ' + pathNew
+        });
+      } catch (error) {
+        log.push({
+          type: 'err',
+          data: error.message
+        });
+      }
+    }
   });
+
+  return cb({ log: log.length ? log : [{ type: 'msg', data: 'No matches.'}] });
 }
 
 /**
@@ -62,11 +110,17 @@ function execUtility(pkg) {
       case 'rename':
         renameFiles(pkg.args, output => resolve(output));
         break;
-      case 'foo':
-        resolve({foo:'bar'});
-        break;
     }
   });
+}
+
+function respondWithOutput(res, statusCode) {
+  statusCode = statusCode || 200;
+  return function(output) {
+    if (output) {
+      res.status(statusCode).json(output);
+    }
+  };
 }
 
 function handleError(res, statusCode) {
