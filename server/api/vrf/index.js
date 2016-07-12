@@ -7,14 +7,13 @@ import * as auth from '../../auth/auth.service';
 
 var router = express.Router();
 
-// uncomment in production
-// router.get('/', auth.isAuthenticated(), controller.index);
-// router.get('/:id', auth.isAuthenticated(), controller.show);
-// router.post('/', auth.isAuthenticated(), controller.create);
-// router.put('/:id', auth.isAuthenticated(), controller.update);
-// router.patch('/:id', auth.isAuthenticated(), controller.update);
-// router.delete('/:id', auth.isAuthenticated(), controller.destroy);
-// router.post('/upload', auth.isAuthenticated(), parsePdf);
+router.get('/', auth.isAuthenticated(), controller.index);
+router.get('/:id', auth.isAuthenticated(), controller.show);
+router.post('/', auth.isAuthenticated(), controller.create);
+router.put('/:id', auth.isAuthenticated(), controller.update);
+router.patch('/:id', auth.isAuthenticated(), controller.update);
+router.delete('/:id', auth.isAuthenticated(), controller.destroy);
+router.post('/upload', auth.isAuthenticated(), parsePdf);
 
 /*
 When a user submits a new VRF, the file is uploaded to the server,
@@ -23,13 +22,5 @@ clicking "Save," the VRF JSON data is sent back to the server with
 the temporary path of the previous file upload. The file is then
 saved to the server.
 */
-
-router.get('/', controller.index);
-router.get('/:id', controller.show);
-router.post('/', controller.create);
-router.put('/:id', controller.update);
-router.patch('/:id', controller.update);
-router.delete('/:id', controller.destroy);
-router.post('/upload', parsePdf);
 
 module.exports = router;

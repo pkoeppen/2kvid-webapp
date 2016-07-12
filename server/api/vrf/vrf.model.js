@@ -9,7 +9,7 @@ var VrfSchema = new mongoose.Schema({
 	date: Date,					// Date requested
 	due: Date,					// Date due
 	body: String,				// Message body
-	notes: [						// Notes from VidProd
+	notes: [					// Notes from VidProd
 		{
 			date: Date,
 			author: String,
@@ -20,9 +20,9 @@ var VrfSchema = new mongoose.Schema({
 	onit: [
 		String
 	],
-	urgent: Boolean,		// Urgent
+	urgent: Boolean,			// Urgent
 	fileUrl: String,
-	active: Boolean			// In progress
+	active: Boolean				// In progress
 });
 
 export default mongoose.model('Vrf', VrfSchema);
