@@ -9,18 +9,21 @@
 		<div class="col-lg-12">
 			<h1 class="page-header">File Renamer</h1>
 			<form class="col-lg-5" name="renamerForm" ng-submit="renameFiles(renamerForm)">
-				<!-- select directory -->
-				<div class="form-group">
-					<div class="btn btn-primary form-control" ngf-select ngf-include-dir="true" ngf-multiple="false">Useless Button</div>
-				</div>
-				<!-- <pre class="selected-dir">{{dir.name || '...'}}</pre> -->
 
+				<!-- clear log -->
+				<div class="form-group">
+					<div class="btn btn-primary form-control" ng-click="clearLog()" ng-class="{disabled: log === ''}">Clear Log</div>
+				</div>
+
+				<!-- root dir -->
 				<div class="form-group">
 					<label for="rootDir" class="control-label">Root Directory</label>
 					<div id="rootDir" class="input-group col-xs-12">
 						<input type="text" class="form-control" placeholder="Starting folder" ng-model="rootDir" required>
 					</div>
 				</div>
+				<!-- /root dir -->
+
 				<!-- text in -->
 				<div class="form-group">
 					<label for="inText" class="control-label">Text In</label>
@@ -28,6 +31,8 @@
 						<input type="text" class="form-control" placeholder="String to search for" ng-model="inText" required>
 					</div>
 				</div>
+				<!-- /text in -->
+
 				<!-- text out -->
 				<div class="form-group">
 					<label for="outText" class="control-label">Text Out</label>
@@ -35,18 +40,20 @@
 						<input type="text" class="form-control" placeholder="String to replace with" ng-model="outText" required>
 					</div>
 				</div>
+				<!-- /text out -->
+
 				<!-- limit extension -->
 				<div class="form-group">
 					<label for="limitExt" class="control-label">Limit to extension</label>
 					<div id="limitExt" class="input-group col-xs-12">
 						<select class="form-control" ng-model="limitExt">
 							<option value="none">(none)</option>
-							<option value="mp4">.mp4</option>
-							<option value="mov">.mov</option>
-							<option value="psd">.psd</option>
+							<option ng-repeat="ext in extensions" value="{{ext}}">.{{ext}}</option>
 						</select>
 					</div>
 				</div>
+				<!-- limit extension -->
+
 				<!-- rename dirs, root only -->
 				<div class="form-group">
 					<label class="checkbox-inline">
@@ -58,11 +65,12 @@
 						Rename directories
 					</label>
 				</div>
+				<!-- /rename dirs, root only -->
+
 				<button type="submit" class="btn btn-success btn-block">Rename</button>
 			</form>
 
-			<pre class="col-lg-7 renamer-log">{{log}}</pre>
+			<pre id="renamer-log" class="col-lg-7" ng-bind-html="log | logFilter"></pre>
 		</div>
 	</div>
-
 </div>

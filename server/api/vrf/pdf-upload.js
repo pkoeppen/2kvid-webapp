@@ -1,17 +1,19 @@
+'use strict';
+
 import config from '../../config/environment';
-var fs = require('fs'),
+
+const fs = require('fs'),
 	path = require('path'),
 	multiparty = require('multiparty'),
 	rand = require('randomstring');
 
 function upload(tmpPath) {
-
 	return new Promise((resolve, reject) => {
 
 		fs.readFile(tmpPath, (err, res) => {
 			if (err) { return reject(err); }
 
-			var fileName = rand.generate(8) + '.pdf',
+			let fileName = rand.generate(8) + '.pdf',
 				uploadDir = path.join(config.root, 'client/uploads'),
 				fullPath = path.join(config.root, 'client/uploads', fileName);
 
@@ -23,7 +25,7 @@ function upload(tmpPath) {
 
 				fs.writeFile(fullPath, res, (err) => {
 					if (err) { return reject(err); }
-					var fileUrl = '/uploads/' + fileName;
+					let fileUrl = '/uploads/' + fileName;
 					resolve(fileUrl);
 				});
 
@@ -36,34 +38,39 @@ function upload(tmpPath) {
 }
 
 function uploadPdf(req) {
-
 	return new Promise((resolve, reject) => {
 
-		var vrf = req.body || {};
+		let vrf = req.body || {};
+		if ( vrf.hasOwnProperty('fileUrl') ) {
+			// submitting new VRF
 
-		if ( vrf.hasOwnProperty('fileUrl') && vrf.fileUrl !== '' ) { 
+			if ( vrf.fileUrl !== '' ) {
+				// parsed VRF; already contains temp path
+				
+				upload(vrf.fileUrl)
+					.then((url) => {
+						vrf.fileUrl = url;
+						 return resolve(vrf);
+					});
 
-			// vrf already contains temp path
-			upload(vrf.fileUrl)
-				.then((url) => {
-					vrf.fileUrl = url;
-					resolve(vrf);
-				});
+			} else {
+				// blank VRF; no temp path
+				return resolve(vrf);
+			}
 
 		} else {
+			// uploading file to existing VRF
 
-			var form = new multiparty.Form();
-
-			// user is uploading file to existing VRF
+			let form = new multiparty.Form();
 			form.parse(req, (err, fields, files) => {
 				if (err) { return reject(err); }
 
-				var tmpPath = files.file.shift().path;
+				let tmpPath = files.file.shift().path;
 
 				upload(tmpPath)
 					.then((url) => {
 						vrf.fileUrl = url;
-						resolve(vrf);
+						return resolve(vrf);
 					});
 			});
 

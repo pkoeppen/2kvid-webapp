@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 
-var VrfSchema = new mongoose.Schema({
+const VrfSchema = new mongoose.Schema({
 	title: String,			// VRF title
 	from: String,				// Requested by
 	for: String,				// Game franchise

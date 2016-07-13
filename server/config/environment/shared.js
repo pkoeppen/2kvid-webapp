@@ -1,6 +1,9 @@
 'use strict';
 
+const version = require('../../../package.json').version;
+
 exports = module.exports = {
+  version,
   userRoles: ['guest', 'user', 'admin'],
   franchises: {
   	'bborn': 'Battleborn',

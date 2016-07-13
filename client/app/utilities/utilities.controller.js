@@ -4,33 +4,47 @@
 
   class UtilitiesController {
 
-    constructor($http, $scope, Upload, Modal) {
+    constructor($http, $scope) {
       this.$http = $http;
 
-      $scope.log = '';
+      $scope.log = [];
       $scope.limitExt = 'none';
+      $scope.extensions = [
+        'aep',
+        'mov',
+        'mp4',
+        'prproj',
+        'psd',
+        'txt'
+      ];
+
+      $scope.clearLog = function() {
+        $scope.log = [];
+      }
 
       $scope.renameFiles = function(form) {        
         if (form.$valid) {
-          var pkg = {
+
+          let pkg = {
             cmd: 'rename',
             args: {
               rootDir: $scope.rootDir,
               inText: $scope.inText,
               outText: $scope.outText,
-              limitExt: $scope.limitExt == 'none' ? undefined : $scope.limitExt,
+              limitExt: $scope.limitExt === 'none'
+                        ? undefined
+                        : $scope.limitExt,
               renameDirs: $scope.renameDirs,
               rootOnly: $scope.rootOnly
             }
           };
-          // console.log(JSON.stringify(pkg, null, 4));
-          // return;
+
           $http.post('/api/util', pkg)
           .then(res => {
-            $scope.log = JSON.stringify(res.data, null, 4) + '\n' + $scope.log;
+            $scope.log = res.data.log.concat([{}], $scope.log);
           });
         }
-      }
+      };
     }
 
   }

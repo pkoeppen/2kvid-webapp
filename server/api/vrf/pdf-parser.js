@@ -1,13 +1,12 @@
 'use strict';
 
-var fs = require('fs'),
+const fs = require('fs'),
 	multiparty = require('multiparty'),
 	PDFParser = require('pdf2json');
 
 function populateModel(data, path) {
 
-	var obj = {};
-
+	let obj = {};
 	for (let i = 0, item; i < data.length; i++) {
 
 		item = data[i];
@@ -19,7 +18,6 @@ function populateModel(data, path) {
 			case /fileUrl/.test(item.id): obj.fileUrl = item.value; break;
 		}
 	}
-
 	return obj;
 }
 
@@ -27,14 +25,14 @@ function parsePdf(req) {
 
 	return new Promise((resolve, reject) => {
 
-		var form = new multiparty.Form(),
+		let form = new multiparty.Form(),
 			pdfParser = new PDFParser();
 
 		form.parse(req, (err, fields, files) => {
 
 			// multiparty saves the file to the magical temp
 			// location for all internet things
-			var tmpPath = files.file.shift().path;
+			let tmpPath = files.file.shift().path;
 
 			pdfParser.on("pdfParser_dataError", errData => {
 				reject(errData);
@@ -42,8 +40,7 @@ function parsePdf(req) {
 
 			pdfParser.on("pdfParser_dataReady", pdfData => {
 
-				var newVrf, raw = pdfParser.getAllFieldsTypes();
-				
+				let newVrf, raw = pdfParser.getAllFieldsTypes();
 				if (raw && raw.length) {
 
 					// add tmpPath to raw PDF object so that

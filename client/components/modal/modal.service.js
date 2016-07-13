@@ -41,7 +41,11 @@ angular.module('2kvidWebApp')
           // doesn't update in the main template as you type
 
           return function(vrf={}, isNew=true) {
-            if (isNew) { vrf.active = true; }
+
+            if (isNew) {
+              vrf.active = true; 
+              vrf.fileUrl = vrf.fileUrl || ''; }
+
             if (!vrf.hasOwnProperty('onit')) { vrf.onit = []; }
 
             var editVrfModal = openModal({
@@ -64,8 +68,10 @@ angular.module('2kvidWebApp')
                 }],
                 toggleOnIt: function(user) {
                   var i = this.vrf.onit.indexOf(user.name);
-                  if ( i > -1 ) { this.vrf.onit.splice(i, 1) }
-                  else { this.vrf.onit.push(user.name) }
+                  if ( i > -1 ) { 
+                    this.vrf.onit.splice(i, 1); }
+                  else { 
+                    this.vrf.onit.push(user.name); }
                 },
                 toggleUrgent: function() {
                   this.vrf.urgent = !this.vrf.urgent;

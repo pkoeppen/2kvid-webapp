@@ -2,6 +2,7 @@
   angular.module("2kvidWebApp.constants", [])
 
 .constant("appConfig", {
+	"version": "0.9.0",
 	"userRoles": [
 		"guest",
 		"user",

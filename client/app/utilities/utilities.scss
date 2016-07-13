@@ -32,6 +32,16 @@
   text-align: center;
 }
 
-.renamer-log {
-  height: 390px;
+#renamer-log {
+  height: 415px;
+
+  .log-msg {
+    color: #046E91;
+  }
+  .log-scs {
+    color: #007000;
+  }
+  .log-err {
+    color: #B40000;
+  }
 }

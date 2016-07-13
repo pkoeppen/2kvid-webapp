@@ -26,7 +26,7 @@ function respondWithResult(res, statusCode) {
 
 function saveUpdates(updates) {
   return function(entity) {
-    var updated = _.merge(entity, updates);
+    let updated = _.merge(entity, updates);
     // Mongoose won't update the "onit" array (let alone 
     // any updated array of equal length) without this line
     updated.markModified('onit');

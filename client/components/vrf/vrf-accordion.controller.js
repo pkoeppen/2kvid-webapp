@@ -14,7 +14,7 @@ class VrfAccordionController {
       for ( var key in $scope.filt ) {
         $scope.filt[key] = !$scope.filt[key];
       }
-    }
+    };
 
     $scope.uploadTo = function (file, id) {
 
@@ -25,6 +25,7 @@ class VrfAccordionController {
             data: { file: file }
         }).then(function (res) {
 
+          // stuff here
           console.log('uploaded');
 
         });

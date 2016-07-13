@@ -4,7 +4,7 @@ var express = require('express');
 var controller = require('./vrf.controller');
 import * as auth from '../../auth/auth.service';
 
-var router = express.Router();
+const router = express.Router();
 
 router.get('/', auth.isAuthenticated(), controller.index);
 router.get('/:id', auth.isAuthenticated(), controller.show);

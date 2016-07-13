@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('2kvidWebApp')
-  .directive('vrfAccordionActive', ['appConfig', (appConfig) => ({
+  .directive('vrfAccordionActive', () => ({
     templateUrl: 'components/vrf/vrf-accordion.html',
     scope: true,
     restrict: 'E',
@@ -9,8 +9,8 @@ angular.module('2kvidWebApp')
     	scope.active = true;
     },
     controller: 'VrfAccordionController'
-  })])
-  .directive('vrfAccordionComplete', ['appConfig', (appConfig) => ({
+  }))
+  .directive('vrfAccordionComplete', () => ({
     templateUrl: 'components/vrf/vrf-accordion.html',
     scope: true,
     restrict: 'E',
@@ -18,4 +18,4 @@ angular.module('2kvidWebApp')
     	scope.active = false;
     },
     controller: 'VrfAccordionController'
-  })]);
+  }));

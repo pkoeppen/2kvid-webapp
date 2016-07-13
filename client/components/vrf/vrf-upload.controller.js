@@ -36,7 +36,7 @@ class VrfUploadController {
                 Upload.upload({
                     url: '/api/vrf/parse',
                     data: { file: file }
-                }).then(function (res) {
+                }).then((res) => {
 
                     $timeout(function() {
 
@@ -54,7 +54,7 @@ class VrfUploadController {
                         $scope.edit(newVrf);
                     });
 
-                }, null, function (evt) {
+                }, null, (evt) => {
 
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
 

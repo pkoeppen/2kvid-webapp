@@ -8,7 +8,7 @@ angular.module('2kvidWebApp')
       save(vrfData) {
         $http.post('/api/vrf/', vrfData)
         .then(res => {
-          if (res.status != 201) {
+          if (res.status !== 201) {
             // error modal
           }
         });
@@ -17,7 +17,7 @@ angular.module('2kvidWebApp')
       update(vrf) {
         $http.put('/api/vrf/' + vrf._id, vrf)
         .then(res => {
-          if (res.status != 201) {
+          if (res.status !== 201) {
             // error modal
           }
         });
@@ -26,7 +26,7 @@ angular.module('2kvidWebApp')
       delete(vrf) {
         $http.delete('/api/vrf/' + vrf._id, vrf)
         .then(res => {
-          if (res.status != 201) {
+          if (res.status !== 201) {
             // error modal
           }
         });

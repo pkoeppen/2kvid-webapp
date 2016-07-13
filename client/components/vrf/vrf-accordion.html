@@ -20,8 +20,8 @@
     <!-- accordion -->
     <uib-accordion>
       <uib-accordion-group 
-        ng-repeat="vrf in $ctrl.Vrfs | filter:(active ? {active:true} : {active:false}) | orderBy:'urgent'"
-        ng-show="filt[vrf.for]">
+        ng-repeat="vrf in $ctrl.Vrfs | filter:(active ? {active:true} : {active:false}) | orderBy:'urgent' | orderBy:'for'"
+        ng-show="vrf.hasOwnProperty('for') && vrf.for !== '' ? filt[vrf.for] : true">
 
         <!-- heading -->
         <uib-accordion-heading>

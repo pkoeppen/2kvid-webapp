@@ -6,14 +6,15 @@
 
 import VrfEvents from './vrf.events';
 
-// Model events to emit
-var events = ['save', 'remove'];
+// model events to emit
+const events = ['save', 'remove'];
 
 export function register(socket) {
-  // Bind model events to socket events
-  for (var i = 0, eventsLength = events.length; i < eventsLength; i++) {
-    var event = events[i];
-    var listener = createListener('vrf:' + event, socket);
+  
+  // bind model events to socket events
+  for (let i = 0, eventsLength = events.length; i < eventsLength; i++) {
+    let event = events[i];
+    let listener = createListener('vrf:' + event, socket);
 
     VrfEvents.on(event, listener);
     socket.on('disconnect', removeListener(event, listener));
