@@ -12,7 +12,8 @@
 import config from '../../config/environment';
 import _ from 'lodash';
 import Vrf from './vrf.model';
-import handleUpload from './pdf-upload';
+import parsePdf from './pdf-parser';
+import uploadPdf from './pdf-upload';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -60,8 +61,6 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
-    console.log(err);
-    console.error(err.stack);
     res.status(statusCode).send(err);
   };
 }
@@ -83,10 +82,28 @@ export function show(req, res) {
 
 // Creates a new VRF in the DB
 export function create(req, res) {
-  return handleUpload(req.body)
-  .then((newVrf) => { return Vrf.create(newVrf); })
-  .then(respondWithResult(res, 201))
-  .catch(handleError(res));
+  return uploadPdf(req)
+    .then((vrf) => { return Vrf.create(vrf); })
+    .then(respondWithResult(res, 201))
+    .catch(handleError(res));
+}
+
+// Parses PDF into JSON data
+export function parse(req, res) {
+  return parsePdf(req)
+    .then(respondWithResult(res, 201))
+    .catch(handleError(res));
+}
+
+// Upload PDF later
+export function upload(req, res) {
+  return uploadPdf(req)
+    .then((updates) => {
+      return Vrf.findById(req.params.id).exec()
+        .then(saveUpdates(updates))
+        .then(respondWithResult(res, 201))
+        .catch(handleError(res));
+    });
 }
 
 // Updates an existing VRF in the DB

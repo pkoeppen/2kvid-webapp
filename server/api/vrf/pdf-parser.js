@@ -16,52 +16,55 @@ function populateModel(data, path) {
 			case /Project_Title/.test(item.id): obj.title = item.value; break;
 			case /Requested_By/.test(item.id): obj.from = item.value; break;
 			case /Project_Description/.test(item.id): obj.body = item.value; break;
-			case /tmpPath/.test(item.id): obj.tmpPath = item.value; break;
+			case /fileUrl/.test(item.id): obj.fileUrl = item.value; break;
 		}
 	}
 
 	return obj;
 }
 
-function parsePdf(req, res) {
+function parsePdf(req) {
 
-	var form = new multiparty.Form(),
-		pdfParser = new PDFParser();
+	return new Promise((resolve, reject) => {
 
-	form.parse(req, (err, fields, files) => {
+		var form = new multiparty.Form(),
+			pdfParser = new PDFParser();
 
-		// multiparty saves the file to the magical temp
-		// location for all internet things
-		var tmpPath = files.file.shift().path;
+		form.parse(req, (err, fields, files) => {
 
-		pdfParser.on("pdfParser_dataError", errData => {
-			res.status(500).send(errData);
-		});
+			// multiparty saves the file to the magical temp
+			// location for all internet things
+			var tmpPath = files.file.shift().path;
 
-		pdfParser.on("pdfParser_dataReady", pdfData => {
+			pdfParser.on("pdfParser_dataError", errData => {
+				reject(errData);
+			});
 
-			var newVrf, raw = pdfParser.getAllFieldsTypes();
+			pdfParser.on("pdfParser_dataReady", pdfData => {
+
+				var newVrf, raw = pdfParser.getAllFieldsTypes();
+				
+				if (raw && raw.length) {
+
+					// add tmpPath to raw PDF object so that
+					// client can save it to /uploads
+					raw.push({
+						id: "fileUrl",
+						value: tmpPath
+					});
+
+					newVrf = populateModel(raw);
+					resolve(newVrf);
+					
+				} else {
+					
+					// spruce this up
+					reject('Incorrect data type');
+				}
+			});
 			
-			if (raw && raw.length) {
-
-				// add tmpPath to raw PDF object so that
-				// client can save it to /uploads
-				raw.push({
-					id: "tmpPath",
-					value: tmpPath
-				});
-
-				newVrf = populateModel(raw);
-				res.send(newVrf);
-				
-			} else {
-				
-				// spruce this up
-				res.status(500).send('Incorrect data type');
-			}
+			pdfParser.loadPDF(tmpPath);
 		});
-		
-		pdfParser.loadPDF(tmpPath);
 	});
 }
 

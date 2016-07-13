@@ -1,121 +1,163 @@
 <div class="row">
   <div class="col-lg-12">
+
     <h1 class="page-header">{{active ? 'Open Assignments:' : 'Completed:'}}</h1>
-      <!-- accordion -->
-      <uib-accordion>
-        <uib-accordion-group ng-repeat="vrf in $ctrl.Vrfs | filter:(active ? {active:true} : {active:false}) | orderBy:'-urgent'">
-          <!-- heading -->
-          <uib-accordion-heading>
-            {{type}}&nbsp;{{vrf.title}}
-            <i ng-if="vrf.urgent && active" class="glyphicon glyphicon-fire" style="color:red;"></i>
-            <i ng-if="!active" class="glyphicon glyphicon-check" style="color:green;margin-left:4px;"></i>
-            <i class="accordion-glyph pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
-            <span ng-if="active" ng-repeat="peer in vrf.onit" class="onit label label-default pull-right">
-              {{peer}}
-            </span>
-          </uib-accordion-heading>
-          <!-- /heading -->
-          <!-- original file -->
-          <div class="row">
-            <div class="col-lg-12">
-              <a ng-if="vrf.fileUrl" href="{{vrf.fileUrl}}" target="_blank">
-                <div class="alert alert-info">
-                  <strong>Original VRF</strong>
-                  <pre class="pull-right" style="margin-top:-9px;">{{vrf.fileUrl}}</pre>
-                </div>
-              </a>
-              <div ng-if="!vrf.fileUrl" class="alert alert-warning">
-                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                &nbsp;Original File Unavailable
+
+    <!-- filter -->
+    <div class="form-inline filt">
+      <button class="btn btn-default" ng-click="toggleFilt()">Toggle all</button>
+      <label class="checkbox-inline" ng-repeat="(stub, franchise) in $ctrl.franchises">
+        <input 
+          ng-model="filt[stub]"
+          type="checkbox" 
+          id="{{active ? 'filt-active-' + stub : 'filt-complete-' + stub}}" 
+          value="{{franchise}}">
+          {{franchise}}
+      </label>
+    </div>
+    <!-- /filter -->
+
+    <!-- accordion -->
+    <uib-accordion>
+      <uib-accordion-group 
+        ng-repeat="vrf in $ctrl.Vrfs | filter:(active ? {active:true} : {active:false}) | orderBy:'urgent'"
+        ng-show="filt[vrf.for]">
+
+        <!-- heading -->
+        <uib-accordion-heading>
+
+          <b>{{$ctrl.franchises[vrf.for]}}</b>
+          &nbsp;&ndash;&nbsp;
+          {{vrf.title}}
+
+          <i ng-if="vrf.urgent && active" class="glyphicon glyphicon-fire" style="color:red;"></i>
+          <i ng-if="!active" class="glyphicon glyphicon-check" style="color:green;margin-left:4px;"></i>
+          <i class="accordion-glyph pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isOpen, 'glyphicon-chevron-right': !isOpen}"></i>
+          <span ng-if="active" ng-repeat="peer in vrf.onit" class="onit label label-default pull-right">
+            {{peer}}
+          </span>
+        </uib-accordion-heading>
+        <!-- /heading -->
+
+        <!-- original file -->
+        <div class="row">
+          <div class="col-lg-12">
+            <a ng-if="vrf.fileUrl" href="{{vrf.fileUrl}}" target="_blank">
+              <div class="alert alert-info">
+                <strong>Original VRF</strong>
+                <pre class="pull-right" style="margin-top:-9px;">{{vrf.fileUrl}}</pre>
               </div>
+            </a>
+            <div ng-if="!vrf.fileUrl" class="alert alert-warning">
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+              &nbsp;Original File Unavailable
+
+              <button ngf-select="uploadTo($file, vrf._id)" class="btn btn-default pull-right" 
+                  ngf-drag-over-class="'dragover'" ngf-multiple="false"
+                  accept="application/pdf" 
+                  ngf-pattern="'application/pdf'"
+                  style="margin-top:-7px;">
+                  Add File
+              </button>
+
             </div>
           </div>
-          <!-- /original file -->
-          <!-- image and table row -->
-          <div class="row">
-            <div class="col-sm-6 col-md-3 col-lg-3">
-              <img ng-src="assets/images/{{vrf.for || ''}}-th.jpg" class="img-thumbnail img-responsive" alt="{{franchises[vrf.for]}}">
-            </div>
-            <div class="col-sm-6 col-md-9 col-lg-9">
-              <table class="table table-responsive table-striped">
-                <tr>
-                  <td>Franchise:</td>
-                  <td>{{franchises[vrf.for]}}</td>
-                </tr>
-                <tr>
-                  <td>Date due:</td>
-                  <td>{{vrf.due|date:'longDate'}}</td>
-                </tr>
-                <tr>
-                  <td>Date requested:</td>
-                  <td>{{vrf.date|date:'longDate'}}</td>
-                </tr>
-                <tr>
-                  <td>Requested by:</td>
-                  <td>{{vrf.from}}</td>
-                </tr>
-                <tr>
-                  <td>Active:</td>
-                  <td ng-style="vrf.active && {'color': 'green'}">{{vrf.active ? 'Yes' : 'No'}}</td>
-                </tr>
-              </table>
-            </div> 
+        </div>
+        <!-- /original file -->
+
+        <!-- image and table -->
+        <div class="row">
+          <div class="col-sm-6 col-md-3 col-lg-3">
+            <img ng-src="assets/images/{{vrf.for || ''}}-th.jpg" class="img-thumbnail img-responsive" alt="{{$ctrl.franchises[vrf.for]}}">
           </div>
-          <!-- /image and table -->
-          <!-- VRF message body -->
-          <div class="row">
+          <div class="col-sm-6 col-md-9 col-lg-9">
+            <table class="table table-responsive table-striped">
+              <tr>
+                <td>Franchise:</td>
+                <td>{{$ctrl.franchises[vrf.for]}}</td>
+              </tr>
+              <tr>
+                <td>Date due:</td>
+                <td>{{vrf.due|date:'longDate'}}</td>
+              </tr>
+              <tr>
+                <td>Date requested:</td>
+                <td>{{vrf.date|date:'longDate'}}</td>
+              </tr>
+              <tr>
+                <td>Requested by:</td>
+                <td>{{vrf.from}}</td>
+              </tr>
+              <tr>
+                <td>Active:</td>
+                <td ng-style="vrf.active && {'color': 'green'}">{{vrf.active ? 'Yes' : 'No'}}</td>
+              </tr>
+            </table>
+          </div> 
+        </div>
+        <!-- /image and table -->
+
+        <!-- VRF message body -->
+        <div class="row">
+          <div class="col-lg-12">
+            <h3>Description</h3>
+            <p class="col-lg-12 vrf-description" ng-bind-html="vrf.body | linebreak"></p>
+          </div>
+        </div>
+        <!-- /VRF message body -->
+
+        <hr>
+
+        <!-- buttons -->
+        <div class="row buttons">
+          <div class="col-lg-12">
+            <button class="btn btn-danger pull-right" ng-click="$ctrl.delete(vrf)">Delete</button>
+            <button ng-if="active" class="btn btn-success pull-right" ng-click="$ctrl.complete(vrf)">Mark Complete</button>
+            <button ng-if="active" class="btn btn-default pull-right" ng-click="$ctrl.edit(vrf, false)">Edit VRF</button>
+          </div>
+        </div>
+        <!-- /buttons -->
+
+        <!-- notes -->
+        <div class="row notes">
+          <div class="col-lg-12">
+            <h3 style="margin: 0 0 20px;">Notes</h3>
             <div class="col-lg-12">
-              <h3>Description</h3>
-              <p class="col-lg-12 vrf-description" ng-bind-html="vrf.body | linebreak"></p>
-            </div>
-          </div>
-          <!-- /VRF message body -->
-          <hr>
-          <!-- buttons -->
-          <div class="row buttons">
-            <div class="col-lg-12">
-              <button class="btn btn-danger pull-right" ng-click="$ctrl.delete(vrf)">Delete</button>
-              <button ng-if="active" class="btn btn-success pull-right" ng-click="$ctrl.complete(vrf)">Mark Complete</button>
-              <button ng-if="active" class="btn btn-default pull-right" ng-click="$ctrl.edit(vrf, false)">Edit VRF</button>
-            </div>
-          </div>
-          <!-- /buttons -->
-          <div class="row notes">
-            <div class="col-lg-12">
-              <h3 style="margin: 0 0 20px;">Notes</h3>
-              <div class="col-lg-12">
-                <div ng-repeat="note in vrf.notes" class="media">
-                  <div class="media-left">
-                    <img class="media-object pull-left" ng-src="/assets/images/team/{{note.author}}-th.jpg">
-                  </div>
-                  <div class="media-body">
-                    <h4 class="media-heading">
-                      {{note.author}}:
-                    </h4>
-                    <p>{{note.body}}</p>
-                  </div>
+              <div ng-repeat="note in vrf.notes" class="media">
+                <div class="media-left">
+                  <img class="media-object pull-left" ng-src="/assets/images/team/{{note.author}}-th.jpg">
                 </div>
-                <p ng-if="!vrf.notes.length" class="text-muted">No notes.</p>
+                <div class="media-body">
+                  <h4 class="media-heading">
+                    {{note.author}}:
+                  </h4>
+                  <p>{{note.body}}</p>
+                </div>
               </div>
+              <p ng-if="!vrf.notes.length" class="text-muted">No notes.</p>
             </div>
           </div>
-          <!-- /notes -->
-          <!-- submit new note -->
-          <div ng-if="active" class="row" style="margin-top: 30px;">
-            <div class="col-lg-12">
-              <form class="note-form">
-                <p class="input-group">
-                  <input type="text" class="form-control" placeholder="Add a new note here." ng-model="vrf.newNote">
-                  <span class="input-group-btn">
-                    <button type="submit" class="btn btn-primary" ng-click="$ctrl.addNote(vrf)">Add New</button>
-                  </span>
-                </p>
-              </form>
-            </div>
+        </div>
+        <!-- /notes -->
+
+        <!-- submit new note -->
+        <div ng-if="active" class="row" style="margin-top: 30px;">
+          <div class="col-lg-12">
+            <form class="note-form">
+              <p class="input-group">
+                <input type="text" class="form-control" placeholder="Add a new note here." ng-model="vrf.newNote">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-primary" ng-click="$ctrl.addNote(vrf)">Add New</button>
+                </span>
+              </p>
+            </form>
           </div>
-          <!-- /submit new note -->
-        </uib-accordion-group>
-      </uib-accordion>
-      <!-- /accordion -->
+        </div>
+        <!-- /submit new note -->
+
+      </uib-accordion-group>
+    </uib-accordion>
+    <!-- /accordion -->
+
   </div>
 </div>

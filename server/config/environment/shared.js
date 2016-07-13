@@ -6,6 +6,7 @@ exports = module.exports = {
   	'bborn': 'Battleborn',
   	'civ6': 'Civilization VI',
   	'mafia3': 'Mafia III',
+    "mktg": "Marketing",
   	'nhlsuper': 'NHL 2K SuperCard',
   	'nba2k17': 'NBA 2K17',
   	'wwe2k17': 'WWE 2K17',

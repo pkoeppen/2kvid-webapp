@@ -7,8 +7,8 @@ angular.module('2kvidWebApp')
     restrict: 'E',
     link: function(scope) {
     	scope.active = true;
-      scope.franchises = appConfig.franchises;
-    }
+    },
+    controller: 'VrfAccordionController'
   })])
   .directive('vrfAccordionComplete', ['appConfig', (appConfig) => ({
     templateUrl: 'components/vrf/vrf-accordion.html',
@@ -16,6 +16,6 @@ angular.module('2kvidWebApp')
     restrict: 'E',
     link: function(scope) {
     	scope.active = false;
-      scope.franchises = appConfig.franchises;
-    }
+    },
+    controller: 'VrfAccordionController'
   })]);

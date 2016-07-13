@@ -1,6 +1,5 @@
 'use strict';
 
-import parsePdf from './pdf-parser';
 var express = require('express');
 var controller = require('./vrf.controller');
 import * as auth from '../../auth/auth.service';
@@ -13,7 +12,8 @@ router.post('/', auth.isAuthenticated(), controller.create);
 router.put('/:id', auth.isAuthenticated(), controller.update);
 router.patch('/:id', auth.isAuthenticated(), controller.update);
 router.delete('/:id', auth.isAuthenticated(), controller.destroy);
-router.post('/upload', auth.isAuthenticated(), parsePdf);
+router.post('/parse', auth.isAuthenticated(), controller.parse);
+router.post('/:id/upload', auth.isAuthenticated(), controller.upload);
 
 /*
 When a user submits a new VRF, the file is uploaded to the server,

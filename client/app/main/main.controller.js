@@ -4,10 +4,12 @@
 
   class MainController {
 
-    constructor($http, $scope, Auth, Modal, socket) {
+    constructor($http, $scope, Auth, Modal, appConfig, socket) {
       this.$http = $http;
-      this.getCurrentUser = Auth.getCurrentUser;
       this.socket = socket;
+      this.getCurrentUser = Auth.getCurrentUser;
+
+      this.franchises = appConfig.franchises;
       this.Vrfs = [];
 
       this.edit = Modal.vrf.edit();
@@ -28,8 +30,8 @@
     }
 
     addNote(vrf) {
-      var updatedNotes;
-      updatedNotes = vrf.notes;
+      var updatedNotes = vrf.notes;
+
       updatedNotes.push({
         date: Date.now(),
         author: this.getCurrentUser().name,
